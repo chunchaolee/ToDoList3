@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To Do List</title>
+  
+  <script>
+
+    
+
+
+    function createToDo() {
+      //創造相關標籤
+      var todo = document.createElement("div"); //To-do div標籤
+      var span = document.createElement("span"); //存放文字用的span標籤
+      var replaceButton = document.createElement("button"); //取代to-do的button標籤
+      var removeButton = document.createElement("button"); //刪除to-do的button標籤
+
+      //處理To-Do的文字內容, 緊急時span 文字顏色為red、不緊急時文字內容為darkgreen
+      var input = document.getElementById("input").value;
+      if ( radio1.checked ) {
+        if ( input == "" ) {
+          input = "空白文";
+        };
+        span.style.color = "red";
+        } else if ( radio2.checked ) {
+        if ( input == "" ) {
+          input = "空白文";
+        };
+        span.style.color = "darkgreen";
+      };
+      span.innerHTML = input;
+      todo.appendChild(span);
+
+
+      //設定replaceButton onclick event
+      replaceButton.onclick = function() {
+        var input = document.getElementById("input").value;
+        if ( input == "" ) {
+          alert("並未輸入任何文字");
+          return;
+        } ;
+        this.parentNode.firstChild.innerHTML = input;
+        document.getElementById("input").value = "";
+      };
+      replaceButton.textContent = "R";
+      todo.appendChild(replaceButton);
+
+      //設定replaceButton onclick event
+      removeButton.onclick = function() {
+        var todolist = document.getElementById("todolist");
+        //加入window confirm()屬性，確定是否刪除
+        var answer = confirm("是否確定完成？");
+        // 點擊「確定」即等於 true，則刪除該todo
+        if ( answer ) { 
+          //更改span文字顏色
+          span.style.color = "lightgrey";
+          //移除 R V 按鈕
+          todo.removeChild(replaceButton);
+          todo.removeChild(removeButton);
+        };
+      };
+      removeButton.textContent = "V";
+      todo.appendChild(removeButton);
+
+      var todolist = document.getElementById("todolist");
+      todolist.appendChild(todo);
+      document.getElementById("input").value = "";
+
+    };
+  </script>
+
+</head>
+<body>
+  
+  <div id="todolist">
+    <input type="form" id="input">
+    <input type="radio" name="status" id="radio1" checked><label for="radio1">緊急</label>
+    <input type="radio" name="status" id="radio2"><label for="radio2">不緊急</label>
+    <button onclick="createToDo()">+</button>
+  </div>
+
+</body>
+</html>
